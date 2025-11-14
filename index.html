@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GCSE Maths Menu</title>
+
+<!-- =======================================================
+      GLOBAL + BACKGROUND
+======================================================= -->
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+html,body{height:100%;}
+body{background:#111;color:#f2f2f2;line-height:1.6;overflow:hidden;position:relative;}
+
+/* falling coloured lines (unchanged) */
+.lines{position:fixed;inset:0;z-index:0;pointer-events:none;width:90vw;margin:auto;display:flex;justify-content:space-between;}
+.line{width:1px;height:100%;overflow:hidden;position:relative;}
+.line::after{content:'';position:absolute;left:0;top:-50%;width:100%;height:15vh;
+             background:linear-gradient(to bottom,transparent 0%,#fff 75%,#fff);
+             animation:drop 7s cubic-bezier(.4,.26,0,.97) infinite;}
+.line:nth-child(1)::after{background:linear-gradient(to bottom,transparent,#FF4500 75%,#FF4500);animation-delay:.5s;}
+.line:nth-child(2)::after{background:linear-gradient(to bottom,transparent,#32CD32 75%,#32CD32);animation-delay:1s;}
+.line:nth-child(3)::after{background:linear-gradient(to bottom,transparent,#1E90FF 75%,#1E90FF);animation-delay:1.5s;}
+.line:nth-child(4)::after{background:linear-gradient(to bottom,transparent,#FFD700 75%,#FFD700);animation-delay:2s;}
+.line:nth-child(5)::after{background:linear-gradient(to bottom,transparent,#8A2BE2 75%,#8A2BE2);animation-delay:2.5s;}
+.line:nth-child(6)::after{background:linear-gradient(to bottom,transparent,#20B2AA 75%,#20B2AA);animation-delay:3s;}
+.line:nth-child(7)::after{background:linear-gradient(to bottom,transparent,#DC143C 75%,#DC143C);animation-delay:3.5s;}
+.line:nth-child(8)::after{background:linear-gradient(to bottom,transparent,#00FA9A 75%,#00FA9A);animation-delay:4s;}
+.line:nth-child(9)::after{background:linear-gradient(to bottom,transparent,#FF1493 75%,#FF1493);animation-delay:4.5s;}
+.line:nth-child(10)::after{background:linear-gradient(to bottom,transparent,#00BFFF 75%,#00BFFF);animation-delay:5s;}
+@keyframes drop{0%{top:-50%;}100%{top:110%;}}
+
+#menu{position:fixed;inset:0;z-index:1;display:flex;justify-content:center;align-items:flex-start;padding:2rem 1rem;overflow-y:auto;}
+.container{width:100%;max-width:900px;}
+
+.logo{position:fixed;top:1rem;left:1rem;width:140px;height:auto;z-index:2;border-radius:8px;}
+
+h1{text-align:center;margin-bottom:2rem;font-size:2.2rem;}
+
+/* -------- ACCORDIONS (base) -------- */
+details{background:#1e293b;border-radius:12px;margin-bottom:.75rem;overflow:visible;position:relative;transition:.3s;}
+summary{cursor:pointer;padding:1rem 1.25rem;font-size:1.1rem;display:flex;justify-content:space-between;align-items:center;list-style:none;}
+summary::-webkit-details-marker{display:none;}
+details::before{content:'';float:left;width:6px;height:100%;border-radius:6px 0 0 6px;}
+summary:hover{background:rgba(255,255,255,.05);}
+.content{display:flex;justify-content:flex-start;padding:1rem 1.5rem 1.25rem;border-top:1px solid rgba(255,255,255,.08);}
+
+/* -------- SECTION COLOURS & HEADER TEXT -------- */
+details.number::before{background:#00bcd4;}       .number[open]{outline:2px solid #00bcd4;}       .number>summary{color:#00bcd4;}
+details.algebra::before{background:#ff5722;}      .algebra[open]{outline:2px solid #ff5722;}      .algebra>summary{color:#ff5722;}
+details.ratio::before{background:#009688;}        .ratio[open]{outline:2px solid #009688;}        .ratio>summary{color:#009688;}
+details.geometry::before{background:#4caf50;}     .geometry[open]{outline:2px solid #4caf50;}     .geometry>summary{color:#4caf50;}
+details.averages::before{background:#3f51b5;}     .averages[open]{outline:2px solid #3f51b5;}     .averages>summary{color:#3f51b5;}
+details.probability::before{background:#e91e63;}  .probability[open]{outline:2px solid #e91e63;}  .probability>summary{color:#e91e63;}
+
+/* -------- HIGHLIGHT THE TOPIC A STUDENT OPENS -------- */
+.number details[open]>summary   {background:rgba(0,188,212,.18);color:#00bcd4;}
+.algebra details[open]>summary  {background:rgba(255,87,34,.18);color:#ff5722;}
+.ratio details[open]>summary    {background:rgba(0,150,136,.18);color:#009688;}
+.geometry details[open]>summary {background:rgba(76,175,80,.18);color:#4caf50;}
+.averages details[open]>summary {background:rgba(63,81,181,.18);color:#3f51b5;}
+.probability details[open]>summary{background:rgba(233,30,99,.18);color:#e91e63;}
+
+/* -------- LINK BUTTONS -------- */
+.link-btn{position:relative;display:inline-block;padding:.6rem 1.2rem;border:none;border-radius:8px;background:linear-gradient(135deg,#00bcd4,#7c4dff);color:#000;font-weight:600;font-size:.95rem;text-decoration:none;transition:.2s;z-index:1;}
+.link-btn:hover{transform:translateY(-3px);background:linear-gradient(135deg,#7c4dff,#c6ff00);}
+.link-btn::after{content:attr(data-tip);position:absolute;left:calc(100% + 14px);top:50%;transform:translateY(-50%);background:#fff;color:#000;padding:.75rem 1rem;border-radius:8px;min-width:120px;max-width:480px;line-height:1.35;white-space:normal;overflow-wrap:break-word;text-align:left;box-shadow:0 4px 12px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .25s;}
+.link-btn::before{content:'';position:absolute;left:100%;top:50%;transform:translateY(-50%);border:6px solid transparent;border-left-color:#fff;opacity:0;transition:opacity .25s;}
+.link-btn:hover::after,.link-btn:hover::before{opacity:1;}
+
+@media(max-width:550px){
+  .link-btn::after{left:auto;right:calc(100% + 14px);}
+  .link-btn::before{left:auto;right:100%;border-left-color:transparent;border-right-color:#fff;}
+}
+</style>
+</head>
+<body>
+
+<!-- logo -->
+<img src="https://lirp.cdn-website.com/b085c470/dms3rep/multi/opt/Bucks%2BCollege%2BGroup-e5af1b68-1920w.jpg"
+     alt="Bucks College Group logo" class="logo"
+     onerror="this.style.display='none'"/>
+
+<!-- background lines -->
+<div class="lines">
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+</div>
+
+<div id="menu"><div class="container">
+<h1>GCSE Maths Menu</h1>
+
+<!-- ======================================================
+=====================  SECTION 1 : NUMBER  ================
+====================================================== -->
+<details class="number">
+  <summary>Number</summary>
+  <div class="content"><strong>Choose a topic ▼</strong></div>
+
+  <!-- Place Value -->
+  <details>
+    <summary>Place Value</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/placevalue-game/" target="_blank" rel="noopener noreferrer"
+         data-tip="Snap colourful blocks together to explode any number into its place-value parts.">
+        Place Value Builder
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/money-games/" target="_blank" rel="noopener noreferrer"
+         data-tip="Level-up your cash skills with virtual shopping sprees.">
+        Money Games
+      </a>
+    </div>
+  </details>
+
+  <!-- Adding & Subtracting Numbers -->
+  <details>
+    <summary>Adding and Subtracting Numbers</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/add-sub-number-line/" target="_blank" rel="noopener noreferrer"
+         data-tip="Drag along a neon number line and watch each jump animate the calculation.">
+        Number-Line Add & Subtract
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/column-addition/" target="_blank" rel="noopener noreferrer"
+         data-tip="Column-add mega-numbers with step hints—earn stars for zero mistakes.">
+        Column Addition
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/column-subtraction/" target="_blank" rel="noopener noreferrer"
+         data-tip="Borrow, regroup and smash subtract-bosses in this column-method quest.">
+        Column Subtraction
+      </a>
+    </div>
+  </details>
+
+  <!-- Adding & Subtracting Decimals -->
+  <details>
+    <summary>Adding and Subtracting Decimals</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/adding-decimals/" target="_blank" rel="noopener noreferrer"
+         data-tip="Line up decimal points like laser sights, then fire accurate answers!">
+        Column Addition with Decimals
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/decimal-subtraction/" target="_blank" rel="noopener noreferrer"
+         data-tip="Slice away tenths and hundredths—real-time coaching keeps you on target.">
+        Column Subtraction with Decimals
+      </a>
+    </div>
+  </details>
+
+  <!-- Multiplying & Dividing Numbers -->
+  <details>
+    <summary>Multiplying and Dividing Numbers</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/timestablegrid/" target="_blank" rel="noopener noreferrer"
+         data-tip="Smash times-table targets and race friends on the live leaderboard.">
+        Timestables Practice
+      </a>
+    </div>
+        <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/timestable-game/" target="_blank" rel="noopener noreferrer"
+         data-tip="Smash times-table targets and race friends on the live leaderboard.">
+        Timestables Blitz
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/column-multiplication-/" target="_blank" rel="noopener noreferrer"
+         data-tip="Carry digits like a champ—animated steps make long products easy.">
+        Column Multiplication
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/longdivision/" target="_blank" rel="noopener noreferrer"
+         data-tip="Drag digits through the bus-stop and celebrate every perfect quotient.">
+        Long Division
+      </a>
+    </div>
+        <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/BIDMAS/" target="_blank" rel="noopener noreferrer"
+         data-tip="Drag digits through the bus-stop and celebrate every perfect quotient.">
+        BIDMAS
+      </a>
+    </div>
+  </details>
+
+  <!-- Number Machines -->
+  <details>
+    <summary>Number Machines</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/numbermachineplayground/" target="_blank" rel="noopener noreferrer"
+         data-tip="Design wild input-output machines and watch numbers transform!">
+        Number Machine Playground
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/numbermachineactivity/" target="_blank" rel="noopener noreferrer"
+         data-tip="Guess the hidden rule, break the code, earn achievement badges.">
+        Number Machine Quiz
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/numbermachinefromeqn/" target="_blank" rel="noopener noreferrer"
+         data-tip="Turn an equation into a number machine to make them easy to work with!">
+        Number Machines from Equations
+      </a>
+    </div>
+  </details>
+
+  <!-- Types of Numbers -->
+  <details>
+    <summary>Types of Numbers</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/venndiagram/" target="_blank" rel="noopener noreferrer"
+         data-tip="Sort primes, squares & evens into a vibrant Venn—see overlaps light up!">
+        Venn Diagram Activity
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/pickingprimes/" target="_blank" rel="noopener noreferrer"
+         data-tip="Test your prime-spotting reflexes before the timer runs out.">
+        Picking Primes
+      </a>
+    </div>
+  </details>
+
+  <!-- Prime Factorisation -->
+  <details>
+    <summary>Prime Factorisation</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/FACTOR-TREE/" target="_blank" rel="noopener noreferrer"
+         data-tip="Grow factor trees that branch into prime leaves—complete the forest!">
+        Factor Trees
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/primefactorisation/" target="_blank" rel="noopener noreferrer"
+         data-tip="Rewrite mega-numbers as products of primes and unlock secret codes.">
+        Product of Prime Factors
+      </a>
+    </div>
+  </details>
+  
+    <!-- LCM & HCF -->
+  <details>
+    <summary>LCM & HCF</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/LCM-HCF/" target="_blank" rel="noopener noreferrer"
+         data-tip="Find the HCF (Higest common factor) and LCM (Lowest common multiple between pairs of values, using a venn diagram. Make sure you understand how to use factor trees to write numbers as product of primes!!">
+        Finding LCM and HCF
+      </a>
+    </div>
+  </details>
+
+  <!-- Fractions -->
+  <details>
+    <summary>Fractions</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/fractionbuilder/" target="_blank" rel="noopener noreferrer"
+         data-tip="Slide bars to build fractions visually and nail equivalence concepts.">
+        Fraction Builder
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/simpfractions/" target="_blank" rel="noopener noreferrer"
+         data-tip="Reduce fractions to simplest form—every simplification powers up your score.">
+        Simplifying Fractions
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/add-sub-fractions/" target="_blank" rel="noopener noreferrer"
+         data-tip="Find common denominators, then add or subtract in fast-paced missions.">
+        Adding & Subtracting Fractions
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/multiplyanddividefractions/" target="_blank" rel="noopener noreferrer"
+         data-tip="Flip, multiply, divide—defeat fraction-bosses and climb the rank ladder.">
+        Multiplying & Dividing Fractions
+      </a>
+    </div>
+  </details>
+  
+    <!-- Standard form -->
+  <details>
+    <summary>Standard Form</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/ordinary-number-to-SF/" target="_blank" rel="noopener noreferrer"
+         data-tip="Slide bars to build fractions visually and nail equivalence concepts.">
+        Ordinary Number to Standard Form
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/SF-to-ordinary-number/" target="_blank" rel="noopener noreferrer"
+         data-tip="Reduce fractions to simplest form—every simplification powers up your score.">
+        Standard Form to Ordinary Number
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/standard-form-practice/" target="_blank" rel="noopener noreferrer"
+         data-tip="Find common denominators, then add or subtract in fast-paced missions.">
+        Standard form practice
+      </a>
+    </div>
+    
+  </details>
+  
+</details><!-- /Number -->
+
+<!-- ======================================================
+=====================  SECTION 2 : ALGEBRA  ===============
+====================================================== -->
+
+<details class="algebra">
+  <summary>Algebra</summary>
+  <details>
+        <!-- Simplifiying expressions -->
+    <summary>Simplifying Expressions</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/simplifying-level-1/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practise collecting like terms and tidying expressions.">
+        Collecting Like terms Level 1
+      </a>
+    </div>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/simplifying-level-2/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practise collecting like terms and tidying expressions.">
+        Collecting Like terms Level 2
+      </a>
+    </div>
+        <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/simplifying-level-3/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practise collecting like terms and tidying expressions.">
+        Collecting Like terms Level 3
+      </a>
+    </div>
+            <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/simplifying-level-4/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practise collecting like terms and tidying expressions.">
+        Simplifying Expressions with multiplication and division
+      </a>
+    </div>
+  </details>
+  
+    <!-- Substitution -->
+    <details>
+    <summary>Substitution</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/substitution/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practise collecting like terms and tidying expressions.">
+        Substituting into Expressions
+      </a>
+    </div>
+  </details>
+  
+      <!-- Expanding and Factorising -->
+    <details>
+    <summary>Expanding and Factorising</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/expanding-brackets-/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practise collecting like terms and tidying expressions.">
+        Expanding Brackets
+      </a>
+    </div>
+        <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/factorising-expressions/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practise collecting like terms and tidying expressions.">
+        Factoring Brackets
+      </a>
+    </div>
+  </details>
+  
+  
+        <!-- Solving Equations -->
+    <details>
+    <summary>Solving Equations</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/solving-equations/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practise collecting like terms and tidying expressions.">
+        Solving Equations using balance
+      </a>
+    </div>
+        <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/solving-equations--practice/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practise collecting like terms and tidying expressions.">
+        Solving Equations Practice
+      </a>
+    </div>
+  </details>
+  
+          <!-- Plotting Straight lines -->
+    <details>
+    <summary>Graph Plotting</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/coordinates-ball-game/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practice plotting co-ordinates.">
+        Plotting Co-Ordinates
+      </a>
+    </div>
+        <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/plotting/" target="_blank" rel="noopener noreferrer"
+         data-tip="Practice Plotting straight lines">
+        Plotting straight lines
+      </a>
+    </div>
+  </details>
+  
+            <!-- Quadratics -->
+    <details>
+    <summary>Solving Quadratics</summary>
+    <div class="content">
+      <a class="link-btn" href="https://www.transum.org/software/sw/starter_of_the_day/students/Quadratic.asp?Level=3" target="_blank" rel="noopener noreferrer"
+         data-tip="Practice plotting co-ordinates.">
+        Solving quadratics
+      </a>
+
+  </details>
+  
+              <!-- Sequences -->
+    <details>
+    <summary>Sequences</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/sequences/" target="_blank" rel="noopener noreferrer"
+         data-tip="Pratice your sequences skills using infomation about the nth term!!">
+        Sequences
+      </a>
+
+  </details>
+  
+                <!-- Sim eqns -->
+    <details>
+    <summary>Simultaneous equations</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/sim-eqns/" target="_blank" rel="noopener noreferrer"
+         data-tip="Pratice solving for two unknowns!!!!!">
+        Simultaneous equations
+      </a>
+
+  </details>
+ 
+  
+</details>
+
+
+<!-- ======================================================
+=====================  SECTION 4 : GEOMETRY ===============
+====================================================== -->
+<details class="geometry">
+  <summary>Geometry</summary>
+  
+  <details>
+    <summary>Transformations</summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/translation/" target="_blank" rel="noopener noreferrer"
+         data-tip="Navigate ships, plot courses and sharpen your bearings accuracy to 1°.">
+        Translation
+      </a>
+    </div>
+        <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/reflection/" target="_blank" rel="noopener noreferrer"
+         data-tip="Navigate ships, plot courses and sharpen your bearings accuracy to 1°.">
+        Reflection
+      </a>
+    </div>
+            <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/rotation/" target="_blank" rel="noopener noreferrer"
+         data-tip="Navigate ships, plot courses and sharpen your bearings accuracy to 1°.">
+        Rotation
+      </a>
+    </div>
+    
+
+
+  </details>
+  
+  
+</details>
+
+<!-- ======================================================
+=======  SECTION 3 : RATIO, PROPORTION & PERCENTAGES ======
+====================================================== -->
+<details class="ratio">
+  <summary>Ratio &amp; Proportion &amp; Percentages</summary>
+  <details>
+    <summary>Ratio </summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/ratio-sharing/" target="_blank" rel="noopener noreferrer"
+         data-tip="Understand, simplify and share using ratios.">
+        Sharing into ratios
+      </a>
+    </div>
+  </details>
+  
+  <details>
+    <summary>Porportion </summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/indirect-proportion/" target="_blank" rel="noopener noreferrer"
+         data-tip="Understand, simplify and share using ratios.">
+        Indirect proportion
+      </a>
+    </div>
+    
+  </details>
+  
+    <details>
+    <summary>Percentages </summary>
+    <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/percentage-multipliers/" target="_blank" rel="noopener noreferrer"
+         data-tip="find percentage multipliers">
+        Percentage Multipliers
+      </a>
+    </div>
+    
+        <div class="content">
+      <a class="link-btn" href="https://nkritah.github.io/percentage-problems/" target="_blank" rel="noopener noreferrer"
+         data-tip="use percentage mulitpliers to solve percentage problems">
+        Percentage problems
+      </a>
+    </div>
+    
+  </details>
+  
+    
+  </details>
+  
+  
+  <!-- ======================================================
+=======  Past papers ======
+====================================================== -->
+<details class="number">
+  <summary>Past Papers </summary>
+  <details>
+    <summary>Eduqas Papers</summary>
+    <div class="content">
+      <a class="link-btn" href="https://eduqaspastpapersjoseph.netlify.app/" target="_blank" rel="noopener noreferrer"
+         data-tip="Here you can look at past papers to practice with, remember to ask your teacher for help if you are stuck with anthing, and the examboard is called Eduqas">
+        Click Here For Past Papers
+      </a>
+    </div>
+  </details>
+  
+
+    
+  </details>
+ 
+</details>
+
+
+</details>
+  <!-- ======================================================
+=======  Century login ======
+====================================================== -->
+<details class="white">
+  <summary>Century Login</summary>
+  <details>
+    <summary>Century </summary>
+    <div class="content">
+      <a class="link-btn" href="https://app.century.tech/login/" target="_blank" rel="noopener noreferrer"
+         data-tip="Click here to get to the login page of century tech">
+        Century Login
+      </a>
+    </div>
+  </details>
+ 
+  </details>
+  
+  
+
+<!-- -------------- keep only one MAIN accordion open -------------- -->
+<script>
+document.addEventListener('toggle',e=>{
+  if(e.target.tagName==='DETAILS' && e.target.open && e.target.parentElement.classList.contains('container')){
+    document.querySelectorAll('#menu>.container>details').forEach(d=>{if(d!==e.target)d.removeAttribute('open');});
+  }
+},true);
+</script>
+</body>
+</html>
