@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,6 +84,10 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
 
 <div id="menu"><div class="container">
 <h1>GCSE Maths Menu</h1>
+<div id="exam-countdowns" style="text-align:center;color:#fff;margin:-1rem 0 1.5rem 0;font-size:1rem;line-height:1.8;">
+  <p>Non-calculator paper — 14 May 2026 — <span id="nonCalcCountdown">49 days remaining</span></p>
+  <p>Calculator paper — 3 June 2026 — <span id="calcCountdown">69 days remaining</span></p>
+</div>
 
 <!-- ======================================================
 =====================  SECTION 1 : NUMBER  ================
@@ -660,6 +665,51 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
   </details>
   
   
+
+<script>
+function getLondonToday(){
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/London',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric'
+  }).formatToParts(new Date());
+
+  return {
+    day: Number(parts.find(part => part.type === 'day').value),
+    month: Number(parts.find(part => part.type === 'month').value),
+    year: Number(parts.find(part => part.type === 'year').value)
+  };
+}
+
+function formatDaysRemaining(days){
+  if(days > 0) return `${days} day${days === 1 ? '' : 's'} remaining`;
+  if(days === 0) return 'Exam is today';
+  return 'Exam has passed';
+}
+
+function updateExamCountdowns(){
+  const today = getLondonToday();
+  const todayUtc = Date.UTC(today.year, today.month - 1, today.day);
+
+  const exams = [
+    { id: 'nonCalcCountdown', year: 2026, month: 5, day: 14 },
+    { id: 'calcCountdown', year: 2026, month: 6, day: 3 }
+  ];
+
+  exams.forEach(exam => {
+    const examUtc = Date.UTC(exam.year, exam.month - 1, exam.day);
+    const daysRemaining = Math.round((examUtc - todayUtc) / 86400000);
+    const element = document.getElementById(exam.id);
+    if(element){
+      element.textContent = formatDaysRemaining(daysRemaining);
+    }
+  });
+}
+
+updateExamCountdowns();
+setInterval(updateExamCountdowns, 1000);
+</script>
 
 <!-- -------------- keep only one MAIN accordion open -------------- -->
 <script>
