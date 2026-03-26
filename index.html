@@ -72,6 +72,18 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
   .link-btn::after{left:auto;right:calc(100% + 14px);}
   .link-btn::before{left:auto;right:100%;border-left-color:transparent;border-right-color:#fff;}
 }
+
+/* -------- EXAM INFORMATION TAB -------- */
+#exam-info-wrapper{text-align:center;margin:-.5rem 0 1.5rem 0;}
+#exam-info{display:block;width:100%;max-width:820px;margin:0 auto;text-align:left;}
+#exam-info::before{display:none;}
+#exam-info>summary{justify-content:center;gap:.5rem;padding:.7rem 1rem;font-size:.95rem;color:#fff;font-weight:600;}
+#exam-info>summary::after{content:'▼';font-size:.72rem;opacity:.8;transition:transform .2s ease;}
+#exam-info[open]>summary::after{transform:rotate(180deg);}
+#exam-info .exam-info-content{padding:1rem 1.25rem 1.1rem;border-top:1px solid rgba(255,255,255,.08);color:#fff;}
+#exam-info ul{margin:0;padding-left:1.2rem;}
+#exam-info li{margin:.55rem 0;}
+
 </style>
 </head>
 <body>
@@ -87,6 +99,29 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
 <div id="exam-countdowns" style="text-align:center;color:#fff;margin:-1rem 0 1.5rem 0;font-size:1rem;line-height:1.8;">
   <p>Non-calculator paper — 14 May 2026 — <span id="nonCalcCountdown">49 days remaining</span></p>
   <p>Calculator paper — 3 June 2026 — <span id="calcCountdown">69 days remaining</span></p>
+</div>
+
+<div id="exam-info-wrapper">
+  <details id="exam-info">
+    <summary>Exam information</summary>
+    <div class="exam-info-content">
+      <ul>
+        <li>Both exams will be held in the morning.</li>
+        <li>Please arrive at college 30 minutes early.</li>
+        <li>Bring all required equipment, including pens, a protractor, a pair of compasses, and a calculator for the calculator paper.</li>
+        <li>Each paper is 2 hours 15 minutes long, or 2 hours 48 minutes with 25% extra time.</li>
+        <li>Each paper is worth 120 marks, giving a total of 240 marks across both papers.</li>
+        <li>Grade boundaries are not known at present and can change each year. A pass is often around 50%, but this may vary.</li>
+        <li>If you are unable to attend either exam, you will not be able to reschedule. November resits are only available if you currently hold a Grade 3.</li>
+        <li>If you think you may miss any of the dates shown above, please inform your tutor(s) as soon as possible.</li>
+        <li>To make sure you have the foundational knowledge for the exam, complete the practice quizzes below, score 90% or above, and send your certificate of achievement to your tutor via Teams. This is essential.</li>
+        <li>If you want to practise with past papers, they are provided below.</li>
+        <li>You should also complete your Century nugget targets based on your previous assessments to improve weaker areas.</li>
+        <li>Your targets can be found in your Teams chat under your tutor’s name.</li>
+        <li>The link for the Century login page is provided below.</li>
+      </ul>
+    </div>
+  </details>
 </div>
 
 <!-- ======================================================
