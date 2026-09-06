@@ -97,8 +97,12 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
 <div id="menu"><div class="container">
 <h1>GCSE Maths Menu</h1>
 <div id="exam-countdowns" style="text-align:center;color:#fff;margin:-1rem 0 1.5rem 0;font-size:1rem;line-height:1.8;">
-  <p>Non-calculator paper — 14 May 2026 — <span id="nonCalcCountdown">49 days remaining</span></p>
-  <p>Calculator paper — 3 June 2026 — <span id="calcCountdown">69 days remaining</span></p>
+  <p>Non-calculator paper — 14 May 2027 — <span id="nonCalcCountdown">Calculating…</span></p>
+  <p>Calculator paper — 27 May 2027 — <span id="calcCountdown">Calculating…</span></p>
+  <hr style="border:0;border-top:1px solid rgba(255,255,255,.2);margin:1rem 0;">
+  <p><strong>November 2026 resit exams</strong></p>
+  <p>Non-calculator paper — 4 November 2026 — <span id="novNonCalcCountdown">Calculating…</span></p>
+  <p>Calculator paper — 6 November 2026 — <span id="novCalcCountdown">Calculating…</span></p>
 </div>
 
 <div id="exam-info-wrapper">
@@ -701,6 +705,19 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
   
   
 
+<!-- ======================================================
+=======  Introduction ======
+====================================================== -->
+<details class="white">
+  <summary>Introduction</summary>
+  <div class="content">
+    <a class="link-btn" href="https://mathbase1.github.io/vid/" target="_blank" rel="noopener noreferrer"
+       data-tip="Watch the introduction video.">
+      Watch Introduction Video
+    </a>
+  </div>
+</details>
+
 <script>
 function getLondonToday(){
   const parts = new Intl.DateTimeFormat('en-GB', {
@@ -728,8 +745,10 @@ function updateExamCountdowns(){
   const todayUtc = Date.UTC(today.year, today.month - 1, today.day);
 
   const exams = [
-    { id: 'nonCalcCountdown', year: 2026, month: 5, day: 14 },
-    { id: 'calcCountdown', year: 2026, month: 6, day: 3 }
+    { id: 'nonCalcCountdown', year: 2027, month: 5, day: 14 },
+    { id: 'calcCountdown', year: 2027, month: 5, day: 27 },
+    { id: 'novNonCalcCountdown', year: 2026, month: 11, day: 4 },
+    { id: 'novCalcCountdown', year: 2026, month: 11, day: 6 }
   ];
 
   exams.forEach(exam => {
