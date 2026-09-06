@@ -103,6 +103,9 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
   <p><strong>November 2026 resit exams</strong></p>
   <p>Non-calculator paper — 4 November 2026 — <span id="novNonCalcCountdown">Calculating…</span></p>
   <p>Calculator paper — 6 November 2026 — <span id="novCalcCountdown">Calculating…</span></p>
+  <hr style="border:0;border-top:1px solid rgba(255,255,255,.2);margin:1rem 0;">
+  <p><strong>March 2027 mock exam</strong></p>
+  <p>17 March 2027 — <span id="mockCountdown">Calculating…</span></p>
 </div>
 
 <div id="exam-info-wrapper">
@@ -713,7 +716,13 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
   <div class="content">
     <a class="link-btn" href="https://mathbase1.github.io/vid/" target="_blank" rel="noopener noreferrer"
        data-tip="Watch the introduction video.">
-      Watch Introduction Video
+      GCSE Plus Intro
+    </a>
+  </div>
+  <div class="content">
+    <a class="link-btn" href="https://mathbase1.github.io/vid2/" target="_blank" rel="noopener noreferrer"
+       data-tip="Watch the GCSE Reset introduction video.">
+      GCSE Reset Intro
     </a>
   </div>
 </details>
@@ -748,7 +757,8 @@ function updateExamCountdowns(){
     { id: 'nonCalcCountdown', year: 2027, month: 5, day: 14 },
     { id: 'calcCountdown', year: 2027, month: 5, day: 27 },
     { id: 'novNonCalcCountdown', year: 2026, month: 11, day: 4 },
-    { id: 'novCalcCountdown', year: 2026, month: 11, day: 6 }
+    { id: 'novCalcCountdown', year: 2026, month: 11, day: 6 },
+    { id: 'mockCountdown', year: 2027, month: 3, day: 17 }
   ];
 
   exams.forEach(exam => {
