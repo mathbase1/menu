@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,6 +83,12 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
 #exam-info ul{margin:0;padding-left:1.2rem;}
 #exam-info li{margin:.55rem 0;}
 
+/* -------- COLLEGE CALENDAR BUTTON -------- */
+.college-calendar-row{text-align:center;margin:0 0 1.5rem;}
+.college-calendar-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:48px;max-width:100%;padding:.8rem 1.4rem;touch-action:manipulation;}
+.college-calendar-btn::before,.college-calendar-btn::after{display:none;}
+.college-calendar-btn:focus-visible{outline:3px solid #fff;outline-offset:4px;}
+
 </style>
 </head>
 <body>
@@ -129,6 +134,21 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </ul>
     </div>
   </details>
+</div>
+
+<!-- College calendar: below the exam counters and above Number -->
+<div class="college-calendar-row">
+  <a id="college-calendar-link" class="link-btn college-calendar-btn"
+     href="https://mathbase1.github.io/calendar-/"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="College Calendar (opens in a new tab)"
+     title="Open the college calendar in a new tab">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+      <path d="M16 3v4M8 3v4M3 11h18M8 15h2M14 15h2"></path>
+    </svg>
+    <span>College Calendar</span>
+  </a>
 </div>
 
 <!-- ======================================================
@@ -286,7 +306,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
-  
+
     <!-- LCM & HCF -->
   <details>
     <summary>LCM & HCF</summary>
@@ -326,7 +346,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
-  
+
     <!-- Standard form -->
   <details>
     <summary>Standard Form</summary>
@@ -348,9 +368,9 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Standard form practice
       </a>
     </div>
-    
+
   </details>
-  
+
 </details><!-- /Number -->
 
 <!-- ======================================================
@@ -387,7 +407,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
-  
+
     <!-- Substitution -->
     <details>
     <summary>Substitution</summary>
@@ -398,7 +418,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
-  
+
       <!-- Expanding and Factorising -->
     <details>
     <summary>Expanding and Factorising</summary>
@@ -415,8 +435,8 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
-  
-  
+
+
         <!-- Solving Equations -->
     <details>
     <summary>Solving Equations</summary>
@@ -433,7 +453,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
-  
+
           <!-- Plotting Straight lines -->
     <details>
     <summary>Graph Plotting</summary>
@@ -450,7 +470,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
-  
+
             <!-- Quadratics -->
     <details>
     <summary>Solving Quadratics</summary>
@@ -462,7 +482,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
 
     </div>
   </details>
-  
+
               <!-- Sequences -->
     <details>
     <summary>Sequences</summary>
@@ -474,7 +494,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
 
     </div>
   </details>
-  
+
                 <!-- Sim eqns -->
     <details>
     <summary>Simultaneous equations</summary>
@@ -486,8 +506,8 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
 
     </div>
   </details>
- 
-  
+
+
 </details>
 
 
@@ -496,7 +516,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
 ====================================================== -->
 <details class="geometry">
   <summary>Geometry</summary>
-  
+
   <details>
     <summary>Transformations</summary>
     <div class="content">
@@ -517,12 +537,12 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Rotation
       </a>
     </div>
-    
+
 
 
   </details>
-  
-  
+
+
 </details>
 
 <!-- ======================================================
@@ -539,7 +559,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
-  
+
   <details>
     <summary>Porportion </summary>
     <div class="content">
@@ -548,9 +568,9 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Indirect proportion
       </a>
     </div>
-    
+
   </details>
-  
+
     <details>
     <summary>Percentages </summary>
     <div class="content">
@@ -559,27 +579,27 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Percentage Multipliers
       </a>
     </div>
-    
+
         <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/percentage-problems/" target="_blank" rel="noopener noreferrer"
          data-tip="use percentage mulitpliers to solve percentage problems">
         Percentage problems
       </a>
     </div>
-    
+
             <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/compound/" target="_blank" rel="noopener noreferrer"
          data-tip="Practice compound interest problems">
         Compound interest
       </a>
     </div>
-    
+
   </details>
-  
-    
+
+
   </details>
-  
-  
+
+
   <!-- ======================================================
 =======  Past papers ======
 ====================================================== -->
@@ -600,11 +620,11 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
-  
 
-    
+
+
   </details>
- 
+
 
 
 
@@ -634,20 +654,20 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Ratio Quiz
       </a>
     </div>
-    
+
     <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/geometry-quiz" target="_blank" rel="noopener noreferrer"
          data-tip="get 90% or more and get your certificate. Send it to your tutor to show you have mastered the concepts">
         Geometry Quiz
       </a>
     </div>
-    
-  </details>
-  
 
-    
   </details>
- 
+
+
+
+  </details>
+
 
 
 
@@ -668,11 +688,11 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Functional skills past papers
       </a>
     </div>
-    
+
   </details>
- 
+
   </details>
-  
+
     <!-- ======================================================
 ======= GCSE target setting ======
 ====================================================== -->
@@ -687,9 +707,9 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
- 
+
   </details>
-  
+
       <!-- ======================================================
 ======= Functional skills Lessons ======
 ====================================================== -->
@@ -703,7 +723,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Place value
       </a>
     </div>
-    
+
         <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/fs-four-ops/" target="_blank" rel="noopener noreferrer"
          data-tip=":-)">
@@ -717,18 +737,18 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Percentages
       </a>
     </div>
-    
+
                     <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/fs-FDP/" target="_blank" rel="noopener noreferrer"
          data-tip=":-)">
         FDP
       </a>
     </div>
-    
+
   </details>
- 
+
   </details>
-  
+
         <!-- ======================================================
 ======= GCSE Lessons ======
 ====================================================== -->
@@ -743,14 +763,14 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Lesson 1 - Place value
       </a>
     </div>
-        
+
     <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/LCM-HCF-lesson/" target="_blank" rel="noopener noreferrer"
          data-tip=":-)">
         Lesson 2 - Factors & Multiples
       </a>
     </div>
-    
+
         <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/gcse-L3/" target="_blank" rel="noopener noreferrer"
          data-tip=":-)">
@@ -771,7 +791,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Lesson 5 - Percentages-I
       </a>
     </div>
-    
+
 
                               <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/Lesson-6-Percentages-II/" target="_blank" rel="noopener noreferrer"
@@ -779,7 +799,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Lesson 6 - Percentages-II
       </a>
     </div>
-    
+
 
                                     <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/Lesson-7-Ratio-I/" target="_blank" rel="noopener noreferrer"
@@ -787,7 +807,7 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Lesson 7 - Ratio-I
       </a>
     </div>
-    
+
                                         <div class="content">
       <a class="link-btn" href="https://mathbase1.github.io/Lesson-8-LCM-HCF-2/" target="_blank" rel="noopener noreferrer"
          data-tip=":-)">
@@ -801,9 +821,9 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
         Lesson 9 - Standard Form
       </a>
     </div>
-    
+
   </details>
- 
+
   </details>
   <!-- ======================================================
 =======  Century login ======
@@ -819,10 +839,10 @@ details.probability::before{background:#e91e63;}  .probability[open]{outline:2px
       </a>
     </div>
   </details>
- 
+
   </details>
-  
-  
+
+
 
 <!-- ======================================================
 =======  Introduction ======
